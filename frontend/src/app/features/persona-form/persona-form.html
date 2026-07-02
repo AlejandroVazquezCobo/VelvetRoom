@@ -1,0 +1,54 @@
+<div class="form-wrap">
+  <a routerLink="/" class="back-link">&larr; Compendio</a>
+  <h2>{{ editando() ? 'Editar Persona' : 'Nueva Persona' }}</h2>
+
+  <form class="vc-panel" [formGroup]="form" (ngSubmit)="guardar()">
+    <label>
+      Nombre
+      <input type="text" formControlName="nombre" />
+    </label>
+
+    <label>
+      Arcana
+      <select formControlName="arcana">
+        @for (a of arcanas; track a) {
+          <option [value]="a">{{ labels[a] }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Nivel
+      <input type="number" formControlName="nivel" min="1" max="99" />
+    </label>
+
+    <fieldset class="stats-fieldset">
+      <legend>Stats (máximo 99)</legend>
+      <label>Fuerza <input type="number" formControlName="fuerza" min="1" max="99" /></label>
+      <label>Magia <input type="number" formControlName="magia" min="1" max="99" /></label>
+      <label>Resistencia <input type="number" formControlName="resistencia" min="1" max="99" /></label>
+      <label>Agilidad <input type="number" formControlName="agilidad" min="1" max="99" /></label>
+      <label>Suerte <input type="number" formControlName="suerte" min="1" max="99" /></label>
+    </fieldset>
+
+    <label>
+      Habilidades (separadas por comas)
+      <input type="text" formControlName="habilidades" placeholder="Bufu, Mabufu" />
+    </label>
+
+    <label>
+      URL de imagen (opcional)
+      <input type="text" formControlName="imagenUrl" />
+    </label>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <div class="actions">
+      <button class="btn" type="submit" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

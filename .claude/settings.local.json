@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(mongod --version)",
+      "Bash(where mongosh *)",
+      "Bash(where mongod *)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "Bash(nerdctl --version)"
+    ]
+  }
+}

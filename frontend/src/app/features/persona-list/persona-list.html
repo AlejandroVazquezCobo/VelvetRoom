@@ -1,0 +1,20 @@
+<header class="list-header">
+  <a routerLink="/" class="back-link">&larr; Compendio</a>
+  <img class="arcana-emblema" [src]="images[arcana()!]" [alt]="labels[arcana()!]" />
+  <h2>{{ labels[arcana()!] }}</h2>
+</header>
+
+@if (cargando()) {
+  <p class="loading">Invocando...</p>
+} @else if (personas().length === 0) {
+  <p class="empty">No hay Personas registradas en este arcano todavía.</p>
+} @else {
+  <div class="persona-grid">
+    @for (persona of personas(); track persona._id) {
+      <a class="persona-card vc-panel" [routerLink]="['/persona', persona._id]">
+        <span class="persona-nombre">{{ persona.nombre }}</span>
+        <span class="persona-nivel">Nv. {{ persona.nivel }}</span>
+      </a>
+    }
+  </div>
+}

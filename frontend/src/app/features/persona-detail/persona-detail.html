@@ -1,0 +1,58 @@
+@if (cargando()) {
+  <p class="loading">Invocando...</p>
+} @else if (persona(); as p) {
+  <div class="detail-wrap">
+    <a class="back-link" [routerLink]="['/arcana', p.arcana]">&larr; {{ labels[p.arcana] }}</a>
+
+    <div class="detail-card vc-panel">
+      @if (p.imagenUrl) {
+        <div class="retrato-wrap">
+          <img class="retrato" [src]="p.imagenUrl" [alt]="p.nombre" />
+        </div>
+      }
+
+      <div class="info-col">
+        <header>
+          <img class="arcana-emblema" [src]="images[p.arcana]" [alt]="labels[p.arcana]" />
+          <div>
+            <h2>{{ p.nombre }}</h2>
+            <span class="badge">{{ labels[p.arcana] }} · Nv. {{ p.nivel }}</span>
+          </div>
+        </header>
+
+        <div class="stats">
+          @for (stat of [
+            { label: 'Fuerza', valor: p.stats.fuerza },
+            { label: 'Magia', valor: p.stats.magia },
+            { label: 'Resistencia', valor: p.stats.resistencia },
+            { label: 'Agilidad', valor: p.stats.agilidad },
+            { label: 'Suerte', valor: p.stats.suerte },
+          ]; track stat.label) {
+            <div class="stat-row">
+              <span class="stat-label">{{ stat.label }}</span>
+              <div class="stat-bar">
+                <div class="stat-fill" [style.width.%]="(stat.valor / STAT_MAXIMO) * 100"></div>
+              </div>
+              <span class="stat-valor">{{ stat.valor }}</span>
+            </div>
+          }
+        </div>
+
+        @if (p.habilidades.length > 0) {
+          <div class="habilidades">
+            @for (h of p.habilidades; track h) {
+              <span class="tag">{{ h }}</span>
+            }
+          </div>
+        }
+
+        <div class="actions">
+          <a class="btn" [routerLink]="['/persona', p._id, 'editar']">Editar</a>
+          <button class="btn btn-danger" type="button" (click)="borrar()">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <p class="loading">Persona no encontrada.</p>
+}

@@ -1,0 +1,19 @@
+<header class="menu-header">
+  <h1>Velvet Compendium</h1>
+  <p class="subtitle">Elige un arcano para ver sus Personas</p>
+  <a class="nueva-btn vc-panel" routerLink="/persona/nuevo">+ Nueva Persona</a>
+</header>
+
+@if (cargando()) {
+  <p class="loading">Cargando compendio...</p>
+} @else {
+  <div class="arcana-grid">
+    @for (arcana of arcanas; track arcana) {
+      <a class="arcana-tile vc-panel" [routerLink]="['/arcana', arcana]">
+        <img class="arcana-emblema" [src]="images[arcana]" [alt]="labels[arcana]" loading="lazy" />
+        <span class="arcana-nombre">{{ labels[arcana] }}</span>
+        <span class="arcana-conteo">{{ conteos()[arcana] ?? 0 }} Personas</span>
+      </a>
+    }
+  </div>
+}
